@@ -1,6 +1,6 @@
 package swampWars.diet;
 
-public interface IDiet {
+public interface Diet {
 
 	public void diet();
 

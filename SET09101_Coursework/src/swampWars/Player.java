@@ -1,13 +1,13 @@
 package swampWars;
 
 import swampWars.diet.EnemyDiet;
-import swampWars.diet.IDiet;
+import swampWars.diet.Diet;
 import swampWars.diet.KnightDiet;
 import swampWars.diet.MacDiet;
 
 public class Player extends SwampDenizen {
 
-	private IDiet _diet;
+	private Diet _diet;
 
 	public Player() {
 		set_diet(new EnemyDiet());
@@ -25,11 +25,11 @@ public class Player extends SwampDenizen {
 		}
 	}
 
-	public IDiet get_diet() {
+	public Diet get_diet() {
 		return _diet;
 	}
 
-	public void set_diet(IDiet _diet) {
+	public void set_diet(Diet _diet) {
 		this._diet = _diet;
 	}
 

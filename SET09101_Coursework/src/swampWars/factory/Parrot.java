@@ -1,4 +1,4 @@
-package swampWars;
+package swampWars.factory;
 
 public class Parrot extends Enemy {
 

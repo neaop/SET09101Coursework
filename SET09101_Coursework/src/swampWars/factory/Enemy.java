@@ -1,4 +1,6 @@
-package swampWars;
+package swampWars.factory;
+
+import swampWars.SwampDenizen;
 
 public class Enemy extends SwampDenizen {
 

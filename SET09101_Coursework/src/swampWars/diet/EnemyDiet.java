@@ -1,6 +1,6 @@
 package swampWars.diet;
 
-public class EnemyDiet implements IDiet {
+public class EnemyDiet implements Diet {
 
 	@Override
 	public void diet() {

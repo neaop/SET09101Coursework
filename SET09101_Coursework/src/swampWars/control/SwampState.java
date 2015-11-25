@@ -1,8 +1,8 @@
 package swampWars.control;
 
 import java.util.ArrayList;
-import swampWars.Enemy;
 import swampWars.Player;
+import swampWars.factory.Enemy;
 
 public class SwampState {
 	private static int _GRIDSIZE;
