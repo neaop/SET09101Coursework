@@ -4,6 +4,6 @@ public class Donkey extends Enemy {
 
 	public Donkey() {
 		super();
-		set_name("Donkey");
+		this.set_name("Donkey");
 	}
 }

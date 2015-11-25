@@ -1,4 +1,4 @@
-package swampWars.diet;
+package swampWars.strategy;
 
 public interface Diet {
 

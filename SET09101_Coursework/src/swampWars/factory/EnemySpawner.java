@@ -2,15 +2,12 @@ package swampWars.factory;
 
 import java.util.Random;
 
-public class EnemySpawner {
+public final class EnemySpawner {
 
-	private Random rand;
-
-	public EnemySpawner() {
-		rand = new Random();
+	private EnemySpawner() {
 	}
 
-	public Enemy spawnEnemy(int type) {
+	private static Enemy spawnEnemy(int type) {
 		Enemy enemy = null;
 		if (type == 0) {
 			enemy = new Donkey();
@@ -22,8 +19,9 @@ public class EnemySpawner {
 		return enemy;
 	}
 
-	public Enemy randomEnemy() {
-		return this.spawnEnemy(rand.nextInt(2));
+	public static Enemy randomEnemy() {
+		Random rand = new Random();
+		return EnemySpawner.spawnEnemy(rand.nextInt(3));
 	}
 
 }
