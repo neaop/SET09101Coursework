@@ -1,30 +1,19 @@
 package swampWars;
 
+import java.util.Random;
+
+import swampWars.control.SwampState;
+
 public class Test {
 
 	public static void main(String[] args) {
+		Random rn = new Random();
+		SwampState.set_GRIDSIZE(5);
 		EnemySpawner es = new EnemySpawner();
+		Enemy e = es.spawnEnemy(rn.nextInt(3));
 
-		Enemy en = es.spawnEnemy(0);
-		System.out.println(en.getClass());
-		en.move();
-
-		en = es.spawnEnemy(1);
-		System.out.println(en.getClass());
-		en.move();
-
-		en = es.spawnEnemy(2);
-		System.out.println(en.getClass());
-		en.move();
-
-		Player p1 = new Player();
-		p1.get_diet().diet();
-
-		p1.updateDiet(1);
-		p1.get_diet().diet();
-
-		p1.updateDiet(2);
-		p1.get_diet().diet();
+		for (int i = 0; i < 1000; i++)
+			e.move();
 	}
 
 }

@@ -4,7 +4,6 @@ public class EnemySpawner {
 
 	public Enemy spawnEnemy(int type) {
 		Enemy enemy = null;
-
 		if (type == 0) {
 			enemy = new Donkey();
 		} else if (type == 1) {
