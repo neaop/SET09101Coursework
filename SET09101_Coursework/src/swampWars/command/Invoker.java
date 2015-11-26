@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Invoker {
 
-	private ArrayList<Command> _theCommands = new ArrayList<Command>();
+	private ArrayList<Command> theCommands = new ArrayList<Command>();
 
 	public void addCommand(Command theCommand) {
-		this._theCommands.add(theCommand);
+		this.theCommands.add(theCommand);
 	}
 
 	public void execute() {
-		for (Command command : this._theCommands) {
+		for (Command command : this.theCommands) {
 			command.execute();
 		}
 	}

@@ -1,7 +1,6 @@
 package swampWars;
 
 import java.util.ArrayList;
-
 import swampWars.command.Command;
 import swampWars.command.Invoker;
 import swampWars.command.MoveCommand;
@@ -12,7 +11,6 @@ import swampWars.factory.Parrot;
 public class Test {
 
 	public static void main(String[] args) {
-		SwampState.set_GRIDSIZE(3);
 
 		Enemy e1 = new Donkey();
 		Enemy e2 = new Parrot();
@@ -21,9 +19,12 @@ public class Test {
 		swamp1.addEnemy(e1);
 		SwampState swamp2 = (SwampState) SwampSerilizer.copy(swamp1);
 		swamp1.addEnemy(e2);
+		swamp1.getEnemyList().get(0).move();
 
-		System.out.println(swamp1.get_enemyList());
-		System.out.println(swamp2.get_enemyList());
+		System.out.println(
+				"swamp1: " + swamp1.getEnemyList().get(0).getxCoord() + swamp1.getEnemyList().get(0).getyCoord());
+		System.out.println(
+				"swamp2: " + swamp2.getEnemyList().get(0).getxCoord() + swamp2.getEnemyList().get(0).getyCoord());
 
 		// for (int i = 0; i < 1000; i++) {
 		// System.out.println(EnemySpawner.randomEnemy().get_name());

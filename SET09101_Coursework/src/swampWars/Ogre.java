@@ -9,35 +9,35 @@ import swampWars.strategy.MacDiet;
 
 public class Ogre extends SwampDenizen {
 
-	private Diet _diet;
+	private Diet diet;
 
 	public Ogre(String name) {
 		Random rand = new Random();
 
-		this.set_name(name);
-		this.set_xCoord(rand.nextInt(SwampState.get_GRIDSIZE()) + 1);
-		this.set_yCoord(rand.nextInt(SwampState.get_GRIDSIZE()) + 1);
+		this.setName(name);
+		this.setxCoord(rand.nextInt(SwampState.getGRIDSIZE()) + 1);
+		this.setyCoord(rand.nextInt(SwampState.getGRIDSIZE()) + 1);
 		updateDiet(rand.nextInt(3));
 
-		System.out.println(this.get_name() + " is at " + this.get_xCoord() + ", " + this.get_yCoord() + ".");
+		System.out.println(this.getName() + " is at " + this.getxCoord() + ", " + this.getyCoord() + ".");
 	}
 
 	public void updateDiet(int type) {
 		if (type == 0) {
-			this.set_diet(new EnemyDiet());
+			this.setDiet(new EnemyDiet());
 		} else if (type == 1) {
-			this.set_diet(new KnightDiet());
+			this.setDiet(new KnightDiet());
 		} else if (type == 2) {
-			this.set_diet(new MacDiet());
+			this.setDiet(new MacDiet());
 		}
 	}
 
-	public Diet get_diet() {
-		return _diet;
+	public Diet getDiet() {
+		return diet;
 	}
 
-	public void set_diet(Diet _diet) {
-		this._diet = _diet;
+	public void setDiet(Diet diet) {
+		this.diet = diet;
 	}
 
 }

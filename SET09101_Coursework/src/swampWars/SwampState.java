@@ -5,46 +5,56 @@ import swampWars.Ogre;
 import swampWars.factory.Enemy;
 
 public class SwampState implements java.io.Serializable {
-	private static int _GRIDSIZE;
-	private Ogre _p1;
-	private ArrayList<Enemy> _enemyList;
+
+	private static int GRIDSIZE;
+	private int turn;
+	private Ogre p1;
+	private ArrayList<Enemy> enemyList;
 
 	// constructor
 	public SwampState(int size) {
-		this._enemyList = new ArrayList<Enemy>();
-		set_GRIDSIZE(size);
+		this.enemyList = new ArrayList<Enemy>();
+		setGRIDSIZE(size);
 	}
 
 	public void addEnemy(Enemy enemy) {
-		this.get_enemyList().add(enemy);
+		this.getEnemyList().add(enemy);
 	}
 
 	public void removeEnemy(Enemy enemy) {
-		this.get_enemyList().remove(enemy);
+		this.getEnemyList().remove(enemy);
 	}
 
-	public static int get_GRIDSIZE() {
-		return _GRIDSIZE;
+	public static int getGRIDSIZE() {
+		return GRIDSIZE;
 	}
 
-	public Ogre get_p1() {
-		return _p1;
+	public static void setGRIDSIZE(int gRIDSIZE) {
+		GRIDSIZE = gRIDSIZE;
 	}
 
-	public ArrayList<Enemy> get_enemyList() {
-		return _enemyList;
+	public int getTurn() {
+		return turn;
 	}
 
-	public static void set_GRIDSIZE(int _GRIDSIZE) {
-		SwampState._GRIDSIZE = _GRIDSIZE;
+	public void setTurn(int turn) {
+		this.turn = turn;
 	}
 
-	public void set_p1(Ogre _p1) {
-		this._p1 = _p1;
+	public Ogre getP1() {
+		return p1;
 	}
 
-	public void set_enemyList(ArrayList<Enemy> _enemyList) {
-		this._enemyList = _enemyList;
+	public void setP1(Ogre p1) {
+		this.p1 = p1;
+	}
+
+	public ArrayList<Enemy> getEnemyList() {
+		return enemyList;
+	}
+
+	public void setEnemyList(ArrayList<Enemy> enemyList) {
+		this.enemyList = enemyList;
 	}
 
 }

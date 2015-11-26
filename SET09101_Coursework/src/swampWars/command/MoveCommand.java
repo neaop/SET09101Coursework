@@ -3,15 +3,15 @@ package swampWars.command;
 import swampWars.SwampDenizen;
 
 public class MoveCommand implements Command {
-	private SwampDenizen _theDenizen;
+	private SwampDenizen theDenizen;
 
 	public MoveCommand(SwampDenizen denizen) {
-		this._theDenizen = denizen;
+		this.theDenizen = denizen;
 	}
 
 	@Override
 	public void execute() {
-		this._theDenizen.move();
+		this.theDenizen.move();
 	}
 
 }

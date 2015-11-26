@@ -2,6 +2,6 @@ package swampWars.strategy;
 
 public interface Diet {
 
-	public void diet();
+	public void Diet();
 
 }

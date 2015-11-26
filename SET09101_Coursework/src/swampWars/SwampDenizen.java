@@ -10,8 +10,8 @@ import java.util.Random;
  */
 public abstract class SwampDenizen implements java.io.Serializable {
 
-	private int _xCoord, _yCoord;
-	private String _name;
+	private int xCoord, yCoord;
+	private String name;
 
 	/**
 	 * Updates the actors coords to a new, random, adjecent tile
@@ -22,15 +22,15 @@ public abstract class SwampDenizen implements java.io.Serializable {
 		int newY = this.changeCoord("Y");
 
 		// if values are not diffrent from current
-		if (newX == _xCoord && newY == _yCoord) {
+		if (newX == xCoord && newY == yCoord) {
 			// roll again
 			this.move();
 		} else {
 			// update coords to new values
 			System.out.println(
-					this.get_name() + " has moved from " + _xCoord + ", " + _yCoord + " to " + newX + ", " + newY);
-			_xCoord = newX;
-			_yCoord = newY;
+					this.getName() + " has moved from " + xCoord + ", " + yCoord + " to " + newX + ", " + newY);
+			xCoord = newX;
+			yCoord = newY;
 		}
 	}
 
@@ -46,15 +46,15 @@ public abstract class SwampDenizen implements java.io.Serializable {
 		int currentCoord = 0, newCoord = 0, rand = 0;
 		Random rn = new Random();
 		// get max grid size
-		int max = SwampState.get_GRIDSIZE();
+		int max = SwampState.getGRIDSIZE();
 
 		// switch to select either X or Y coord
 		switch (coord) {
 		case "X":
-			currentCoord = this._xCoord;
+			currentCoord = this.xCoord;
 			break;
 		case "Y":
-			currentCoord = this._yCoord;
+			currentCoord = this.yCoord;
 			break;
 		}
 
@@ -86,28 +86,28 @@ public abstract class SwampDenizen implements java.io.Serializable {
 		return newCoord;
 	}
 
-	public int get_xCoord() {
-		return _xCoord;
+	public int getxCoord() {
+		return xCoord;
 	}
 
-	public int get_yCoord() {
-		return _yCoord;
+	public void setxCoord(int xCoord) {
+		this.xCoord = xCoord;
 	}
 
-	public String get_name() {
-		return _name;
+	public int getyCoord() {
+		return yCoord;
 	}
 
-	public void set_xCoord(int _xCoord) {
-		this._xCoord = _xCoord;
+	public void setyCoord(int yCoord) {
+		this.yCoord = yCoord;
 	}
 
-	public void set_yCoord(int _yCoord) {
-		this._yCoord = _yCoord;
+	public String getName() {
+		return name;
 	}
 
-	public void set_name(String _name) {
-		this._name = _name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

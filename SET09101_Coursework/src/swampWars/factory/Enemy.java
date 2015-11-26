@@ -5,8 +5,8 @@ import swampWars.SwampDenizen;
 public class Enemy extends SwampDenizen {
 
 	public Enemy() {
-		set_xCoord(0);
-		set_yCoord(0);
+		setxCoord(0);
+		setyCoord(0);
 	}
 
 }
