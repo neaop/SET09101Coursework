@@ -17,21 +17,26 @@ public abstract class SwampDenizen implements java.io.Serializable {
 	 * Updates the actors coords to a new, random, adjecent tile
 	 */
 	public void move() {
-		// roll random adjecent values for each coord
+		boolean boolX = false, boolY = false;
+		// roll random adjacent values for each coord
+		int currentX = this.xCoord;
+		int currentY = this.yCoord;
+
 		int newX = this.changeCoord("X");
 		int newY = this.changeCoord("Y");
 
-		// if values are not diffrent from current
-		if (newX == xCoord && newY == yCoord) {
-			// roll again
+		// if values are not different from current
+
+		if ((newX == currentX && newY == currentY)) {
 			this.move();
 		} else {
 			// update coords to new values
 			System.out.println(
 					this.getName() + " has moved from " + xCoord + ", " + yCoord + " to " + newX + ", " + newY);
-			xCoord = newX;
+			this.xCoord = newX;
 			yCoord = newY;
 		}
+
 	}
 
 	/**
@@ -42,11 +47,11 @@ public abstract class SwampDenizen implements java.io.Serializable {
 	 * @return A new valid coord int
 	 */
 	private int changeCoord(String coord) {
-		// declare varibles
+		// declare variables
 		int currentCoord = 0, newCoord = 0, rand = 0;
 		Random rn = new Random();
 		// get max grid size
-		int max = SwampState.getGRIDSIZE();
+		int max = GameControl.getGRIDSIZE();
 
 		// switch to select either X or Y coord
 		switch (coord) {
@@ -57,30 +62,40 @@ public abstract class SwampDenizen implements java.io.Serializable {
 			currentCoord = this.yCoord;
 			break;
 		}
+		newCoord = currentCoord;
 
 		// if coord is at min edge
 		if (currentCoord == 0) {
 			// roll number
 			rand = rn.nextInt(2);
-			if (rand == 1) {
-				// move down one square
-				newCoord = currentCoord + 1;
+			if (rand == 0) {
+
+			} else if (rand == 1) {
+				// move along one square
+				newCoord++;
 			}
+
 			// if coord is at max edge
 		} else if (currentCoord == max) {
 			// roll number
 			rand = rn.nextInt(2);
-			if (rand == 1) {
-				// move up one square
-				newCoord = currentCoord - 1;
+			if (rand == 0) {
+
+			} else if (rand == 1) {
+				// move back one square
+				newCoord--;
 			}
+
 			// if coord is not at either edge
-		} else {
+
+		} else if ((currentCoord > 0) && (currentCoord < max)) {
 			rand = rn.nextInt(3);
-			if (rand == 1) {
-				newCoord = currentCoord - 1;
+			if (rand == 0) {
+
+			} else if (rand == 1) {
+				newCoord--;
 			} else if (rand == 2) {
-				newCoord = currentCoord + 1;
+				newCoord++;
 			}
 		}
 		return newCoord;

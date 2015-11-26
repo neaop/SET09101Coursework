@@ -13,10 +13,24 @@ public class Ogre extends SwampDenizen {
 
 	public Ogre(String name) {
 		Random rand = new Random();
+		int startX, startY;
+		startX = rand.nextInt(GameControl.getGRIDSIZE() + 1);
+		startY = rand.nextInt(GameControl.getGRIDSIZE() + 1);
+
+		if (startX == 0 && startY == 0) {
+			int select = rand.nextInt(2);
+			if (select == 0) {
+				startX++;
+			}
+			if (select == 1) {
+				startY++;
+			}
+		}
+		this.setxCoord(startX);
+		this.setyCoord(startY);
 
 		this.setName(name);
-		this.setxCoord(rand.nextInt(SwampState.getGRIDSIZE()) + 1);
-		this.setyCoord(rand.nextInt(SwampState.getGRIDSIZE()) + 1);
+
 		updateDiet(rand.nextInt(3));
 
 		System.out.println(this.getName() + " is at " + this.getxCoord() + ", " + this.getyCoord() + ".");
