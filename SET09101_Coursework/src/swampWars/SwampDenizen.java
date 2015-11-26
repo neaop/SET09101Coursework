@@ -8,7 +8,7 @@ import java.util.Random;
  * @author Sam Dixon
  *
  */
-public abstract class SwampDenizen {
+public abstract class SwampDenizen implements java.io.Serializable {
 
 	private int _xCoord, _yCoord;
 	private String _name;
@@ -27,7 +27,8 @@ public abstract class SwampDenizen {
 			this.move();
 		} else {
 			// update coords to new values
-			System.out.println("I have moved from " + _xCoord + ", " + _yCoord + " to " + newX + ", " + newY);
+			System.out.println(
+					this.get_name() + " has moved from " + _xCoord + ", " + _yCoord + " to " + newX + ", " + newY);
 			_xCoord = newX;
 			_yCoord = newY;
 		}

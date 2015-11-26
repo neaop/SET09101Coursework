@@ -4,14 +4,23 @@ import java.util.ArrayList;
 import swampWars.Ogre;
 import swampWars.factory.Enemy;
 
-public class SwampState {
+public class SwampState implements java.io.Serializable {
 	private static int _GRIDSIZE;
 	private Ogre _p1;
 	private ArrayList<Enemy> _enemyList;
 
 	// constructor
 	public SwampState(int size) {
+		this._enemyList = new ArrayList<Enemy>();
 		set_GRIDSIZE(size);
+	}
+
+	public void addEnemy(Enemy enemy) {
+		this.get_enemyList().add(enemy);
+	}
+
+	public void removeEnemy(Enemy enemy) {
+		this.get_enemyList().remove(enemy);
 	}
 
 	public static int get_GRIDSIZE() {

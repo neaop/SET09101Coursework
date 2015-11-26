@@ -9,7 +9,6 @@ import swampWars.strategy.MacDiet;
 
 public class Ogre extends SwampDenizen {
 
-	private String _name;
 	private Diet _diet;
 
 	public Ogre(String name) {
@@ -33,16 +32,8 @@ public class Ogre extends SwampDenizen {
 		}
 	}
 
-	public String get_name() {
-		return _name;
-	}
-
 	public Diet get_diet() {
 		return _diet;
-	}
-
-	public void set_name(String _name) {
-		this._name = _name;
 	}
 
 	public void set_diet(Diet _diet) {
