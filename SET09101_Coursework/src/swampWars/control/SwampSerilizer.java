@@ -1,4 +1,4 @@
-package swampWars;
+package swampWars.control;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

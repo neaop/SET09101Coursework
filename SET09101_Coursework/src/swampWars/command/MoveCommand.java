@@ -1,6 +1,6 @@
 package swampWars.command;
 
-import swampWars.SwampDenizen;
+import swampWars.actors.SwampDenizen;
 
 public class MoveCommand implements Command {
 	private SwampDenizen theDenizen;

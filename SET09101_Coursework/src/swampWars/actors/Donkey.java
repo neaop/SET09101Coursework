@@ -1,4 +1,4 @@
-package swampWars.factory;
+package swampWars.actors;
 
 public class Donkey extends Enemy {
 

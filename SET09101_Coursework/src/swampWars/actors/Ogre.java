@@ -1,7 +1,8 @@
-package swampWars;
+package swampWars.actors;
 
 import java.util.Random;
 
+import swampWars.control.GameControl;
 import swampWars.strategy.Diet;
 import swampWars.strategy.EnemyDiet;
 import swampWars.strategy.KnightDiet;

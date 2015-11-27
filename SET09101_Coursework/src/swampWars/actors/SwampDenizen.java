@@ -1,6 +1,8 @@
-package swampWars;
+package swampWars.actors;
 
 import java.util.Random;
+
+import swampWars.control.GameControl;
 
 /**
  * A base class for all actors in the game

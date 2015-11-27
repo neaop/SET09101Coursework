@@ -1,13 +1,15 @@
-package swampWars;
+package swampWars.control;
 
 import java.util.Random;
 import java.util.Stack;
 
+import swampWars.actors.Enemy;
+import swampWars.actors.EnemySpawner;
+import swampWars.actors.Ogre;
+import swampWars.actors.SwampDenizen;
 import swampWars.command.Command;
 import swampWars.command.Invoker;
 import swampWars.command.MoveCommand;
-import swampWars.factory.Enemy;
-import swampWars.factory.EnemySpawner;
 
 public class GameControl {
 

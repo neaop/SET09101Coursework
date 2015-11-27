@@ -1,8 +1,8 @@
-package swampWars;
+package swampWars.control;
 
 import java.util.ArrayList;
-import swampWars.Ogre;
-import swampWars.factory.Enemy;
+import swampWars.actors.Enemy;
+import swampWars.actors.Ogre;
 
 public class SwampState implements java.io.Serializable {
 
