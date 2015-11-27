@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import swampWars.actors.Enemy;
 import swampWars.actors.Ogre;
 
+@SuppressWarnings("serial")
 public class SwampState implements java.io.Serializable {
 
 	private Ogre player;

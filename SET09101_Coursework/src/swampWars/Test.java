@@ -1,12 +1,5 @@
 package swampWars;
 
-import java.util.Arrays;
-
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
-import swampWars.actors.Enemy;
-import swampWars.actors.EnemySpawner;
-import swampWars.actors.Ogre;
 import swampWars.control.GameControl;
 
 public class Test {

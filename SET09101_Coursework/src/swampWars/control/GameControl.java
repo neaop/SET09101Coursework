@@ -19,11 +19,10 @@ import swampWars.strategy.EnemyDiet;
 public class GameControl {
 
 	private static int GRIDSIZE = 3;
-	private Stack<SwampState> undo, redo;
-	private SwampState currentState;
 	private int turnCount;
 	private boolean gameOgre;
-
+	private Stack<SwampState> undo, redo;
+	private SwampState currentState;
 	private Invoker invoker;
 
 	/**
@@ -42,56 +41,78 @@ public class GameControl {
 		this.getCurrentState().setPlayer(ogre);
 	}
 
+	/**
+	 * 
+	 */
 	public void nextTurn() {
+		// check if the ogre is still alive
 		if (!this.gameOgre) {
+			// increment turn counter
+			this.turnCount++;
+
 			// empty redo stack
 			this.redo.clear();
 			// push current swampState into undo stack
 			SwampState swampCopy = (SwampState) SwampSerilizer.copy(this.currentState);
 			this.undo.push(swampCopy);
+
 			// clear invoker of all commands
 			this.invoker = new Invoker();
-			// increment counter
-			this.turnCount++;
 
 			// create move command for player
 			Command move = new MoveCommand(this.currentState.getPlayer());
 			// add to invoker
 			this.invoker.addCommand(move);
-			// loop through every enemy in play
 
+			// declare new array for senemy move commands
 			CommandGenerator[] cg = new CommandGenerator[this.currentState.getEnemyList().size()];
 
+			// loop through every enemy
 			for (int i = 0; i < this.currentState.getEnemyList().size(); i++) {
+				// declare new move command generator for current enemy
 				cg[i] = new CommandGenerator(this.currentState.getEnemyList().get(i), invoker);
+				// start thread to generate move command
 				cg[i].start();
 			}
 
+			// loop through every command generator
 			for (int i = 0; i < this.currentState.getEnemyList().size(); i++) {
 				try {
+					// ensure command generator is finished
 					cg[i].join();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+
 			// execute all move commands
 			invoker.execute();
 
-			// roll random number
-			Random rand = new Random();
-			int rn = rand.nextInt(3);
-			// if random value is 0
-			if (rn == 0) {
-				// create new monster
-				Enemy en = EnemySpawner.randomEnemy();
-				System.out.println("A " + en.getName() + " has entered the swamp!");
-				this.currentState.addEnemy(en);
-			}
+			this.rollEnemy();
+
 			this.conflictCheck();
-			System.out.println("");
 		}
 	}
 
+	/**
+	 * 
+	 */
+	public void rollEnemy() {
+		// roll random number
+		Random rand = new Random();
+		int rn = rand.nextInt(3);
+		// if random value is 0
+		if (rn == 0) {
+			// create new monster
+			Enemy en = EnemySpawner.randomEnemy();
+			System.out.println("A " + en.getName() + " has entered the swamp!");
+			this.currentState.addEnemy(en);
+		}
+	}
+
+	/**
+	 * 
+	 */
 	public void undo() {
 		if (this.undo.size() >= 1) {
 			this.turnCount--;
@@ -104,6 +125,9 @@ public class GameControl {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void redo() {
 		if (this.redo.size() >= 1) {
 			this.turnCount++;
@@ -116,6 +140,9 @@ public class GameControl {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void conflictCheck() {
 		// if there is at least one enemy
 		if (this.currentState.getEnemyList().size() > 0) {
@@ -164,6 +191,9 @@ public class GameControl {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void display() {
 		if (!this.gameOgre) {
 			System.out.println("Turn: " + this.turnCount);
@@ -186,6 +216,8 @@ public class GameControl {
 			System.out.print("\n");
 		}
 	}
+
+	// getters/setters
 
 	public Stack<SwampState> getUndo() {
 		return undo;
