@@ -26,18 +26,15 @@ public abstract class SwampDenizen implements java.io.Serializable {
 		// check if position hasn't changed or has moved off of grid
 		while ((newX == this.xCoord && newY == this.yCoord)
 				|| (newX > GameControl.getGRIDSIZE() || newY > GameControl.getGRIDSIZE()) || (newX < 0 || newY < 0)) {
-
 			// reset new position to be current position
 			newX = this.xCoord;
 			newY = this.yCoord;
-
 			// Generate number between -1 - 1
 			rand = rn.nextInt(3) - 1;
 			// add to current position
 			newX += rand;
 			rand = rn.nextInt(3) - 1;
 			newY += rand;
-
 		}
 		// print old coords and new coords
 		System.out.println(this.getName() + " has moved from " + xCoord + ", " + yCoord + " to " + newX + ", " + newY);
@@ -45,6 +42,11 @@ public abstract class SwampDenizen implements java.io.Serializable {
 		// update coords to new
 		this.xCoord = newX;
 		this.yCoord = newY;
+	}
+
+	public int[] getLocation() {
+		int[] location = new int[] { this.getXCoord(), this.getYCoord() };
+		return location;
 	}
 
 	public int getXCoord() {
