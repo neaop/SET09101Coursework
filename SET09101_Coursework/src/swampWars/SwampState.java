@@ -6,14 +6,12 @@ import swampWars.factory.Enemy;
 
 public class SwampState implements java.io.Serializable {
 
-	// private int turn;
 	private Ogre player;
 	private ArrayList<Enemy> enemyList;
 
 	// constructor
-	public SwampState(/* int turn */) {
+	public SwampState() {
 		this.enemyList = new ArrayList<Enemy>();
-		// this.turn = turn;
 	}
 
 	public void addEnemy(Enemy enemy) {
@@ -23,14 +21,6 @@ public class SwampState implements java.io.Serializable {
 	public void removeEnemy(Enemy enemy) {
 		this.getEnemyList().remove(enemy);
 	}
-
-	// public int getTurn() {
-	// return turn;
-	// }
-	//
-	// public void setTurn(int turn) {
-	// this.turn = turn;
-	// }
 
 	public Ogre getPlayer() {
 		return player;

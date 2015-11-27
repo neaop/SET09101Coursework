@@ -12,15 +12,7 @@ import swampWars.factory.Parrot;
 public class Test {
 
 	public static void main(String[] args) {
-		GameControl.setGRIDSIZE(3);
 		GameControl gc = new GameControl("Drek");
-		gc.display();
-		for (int i = 0; i < 10; i++) {
-			gc.nextTurn();
-			gc.display();
-
-		}
-
 		// Enemy e1 = new Donkey();
 		// Enemy e2 = new Parrot();
 		//

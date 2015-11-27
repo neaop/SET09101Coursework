@@ -11,26 +11,28 @@ import swampWars.factory.EnemySpawner;
 
 public class GameControl {
 
+	private static int GRIDSIZE = 3;
 	private Stack<SwampState> undo, redo;
 	private SwampState currentState;
 	private int turnCount;
-	private static int GRIDSIZE;
+
 	private Invoker invoker;
 
-	private GameControl() {
-	}
-
 	public GameControl(String name) {
+		this.undo = new Stack<SwampState>();
+		this.redo = new Stack<SwampState>();
 		Ogre ogre = new Ogre(name);
-		this.turnCount = 0;
-		this.setCurrentState(new SwampState(/* this.turnCount */));
+		this.turnCount = 1;
+		this.setCurrentState(new SwampState());
 		this.getCurrentState().setPlayer(ogre);
 	}
 
 	public void nextTurn() {
+		// empty redo stack
+		this.redo.clear();
 		// push current swampState into undo stack
-		// SwampState swamp2 = (SwampState)
-		// SwampSerilizer.copy(this.currentState);
+		SwampState swampCopy = (SwampState) SwampSerilizer.copy(this.currentState);
+		this.undo.push(swampCopy);
 		// clear invoker of all commands
 		this.invoker = new Invoker();
 		// increment counter
@@ -61,22 +63,52 @@ public class GameControl {
 			System.out.println("A " + en.getName() + " has enterd the swamp!");
 			this.currentState.addEnemy(en);
 		}
-		System.out.println("\n");
+		System.out.println("");
+	}
+
+	public void undo() {
+		if (this.undo.size() >= 1) {
+			this.turnCount--;
+			SwampState prev = this.undo.pop();
+			SwampState swampCopy = (SwampState) SwampSerilizer.copy(this.currentState);
+			this.redo.push(swampCopy);
+			this.currentState = prev;
+		} else {
+			System.out.println("No moves to undo, you dummy!");
+		}
+	}
+
+	public void redo() {
+		if (this.redo.size() >= 1) {
+			this.turnCount++;
+			SwampState next = this.redo.pop();
+			SwampState swampCopy = (SwampState) SwampSerilizer.copy(this.currentState);
+			this.undo.push(swampCopy);
+			this.currentState = next;
+		} else {
+			System.out.println("No moves to redo, dumdum!");
+		}
 	}
 
 	public void display() {
-		for (int i = 0; i <= this.GRIDSIZE; i++) {
-			for (int j = 0; j <= this.GRIDSIZE; j++) {
+		System.out.println("Turn: " + this.turnCount);
+		for (int i = 0; i <= GameControl.GRIDSIZE; i++) {
+			for (int j = 0; j <= GameControl.GRIDSIZE; j++) {
 				System.out.print("[" + i + "," + j);
+				Ogre og = this.currentState.getPlayer();
+				if (og.getXCoord() == i && og.getYCoord() == j) {
+					System.out.print(" O");
+				}
 				for (SwampDenizen actor : currentState.getEnemyList()) {
-					if (actor.getxCoord() == i && actor.getyCoord() == j) {
-						System.out.print(" " + actor.getName());
+					if (actor.getXCoord() == i && actor.getYCoord() == j) {
+						System.out.print(" " + actor.getName().substring(0, 1));
 					}
 				}
 				System.out.print("]");
 			}
 			System.out.print("\n");
 		}
+		System.out.print("\n");
 	}
 
 	public Stack<SwampState> getUndo() {
@@ -107,8 +139,8 @@ public class GameControl {
 		return GRIDSIZE;
 	}
 
-	public static void setGRIDSIZE(int gRIDSIZE) {
-		GRIDSIZE = gRIDSIZE;
+	public static void setGRIDSIZE(int gridSize) {
+		GRIDSIZE = gridSize;
 	}
 
 }

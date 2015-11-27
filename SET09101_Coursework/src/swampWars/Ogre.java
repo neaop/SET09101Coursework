@@ -26,14 +26,14 @@ public class Ogre extends SwampDenizen {
 				startY++;
 			}
 		}
-		this.setxCoord(startX);
-		this.setyCoord(startY);
+		this.setXCoord(startX);
+		this.setYCoord(startY);
 
 		this.setName(name);
 
 		updateDiet(rand.nextInt(3));
 
-		System.out.println(this.getName() + " is at " + this.getxCoord() + ", " + this.getyCoord() + ".");
+		System.out.println(this.getName() + " is at " + this.getXCoord() + ", " + this.getYCoord() + ".");
 	}
 
 	public void updateDiet(int type) {

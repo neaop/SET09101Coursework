@@ -1,6 +1,8 @@
 package swampWars.strategy;
 
-public class EnemyDiet implements Diet {
+import java.io.Serializable;
+
+public class EnemyDiet implements Diet, Serializable {
 
 	@Override
 	public void Diet() {
