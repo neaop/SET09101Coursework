@@ -2,7 +2,7 @@ package swampWars.command;
 
 import java.util.ArrayList;
 
-public class Invoker {
+public class Invoker extends Thread {
 
 	private ArrayList<Command> theCommands = new ArrayList<Command>();
 
@@ -15,4 +15,5 @@ public class Invoker {
 			command.execute();
 		}
 	}
+
 }

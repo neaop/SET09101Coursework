@@ -1,6 +1,5 @@
 package swampWars.control;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -11,6 +10,7 @@ import swampWars.actors.EnemySpawner;
 import swampWars.actors.Ogre;
 import swampWars.actors.SwampDenizen;
 import swampWars.command.Command;
+import swampWars.command.CommandGenerator;
 import swampWars.command.Invoker;
 import swampWars.command.MoveCommand;
 import swampWars.strategy.Diet;
@@ -26,11 +26,17 @@ public class GameControl {
 
 	private Invoker invoker;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param name
+	 *            name of players character
+	 */
 	public GameControl(String name) {
+		Ogre ogre = new Ogre(name);
 		this.gameOgre = false;
 		this.undo = new Stack<SwampState>();
 		this.redo = new Stack<SwampState>();
-		Ogre ogre = new Ogre(name);
 		this.turnCount = 1;
 		this.setCurrentState(new SwampState());
 		this.getCurrentState().setPlayer(ogre);
@@ -53,14 +59,24 @@ public class GameControl {
 			// add to invoker
 			this.invoker.addCommand(move);
 			// loop through every enemy in play
-			for (Enemy enemy : this.currentState.getEnemyList()) {
-				// create move command
-				move = new MoveCommand(enemy);
-				// add to invoker
-				invoker.addCommand(move);
+
+			CommandGenerator[] cg = new CommandGenerator[this.currentState.getEnemyList().size()];
+
+			for (int i = 0; i < this.currentState.getEnemyList().size(); i++) {
+				cg[i] = new CommandGenerator(this.currentState.getEnemyList().get(i), invoker);
+				cg[i].start();
+			}
+
+			for (int i = 0; i < this.currentState.getEnemyList().size(); i++) {
+				try {
+					cg[i].join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 			// execute all move commands
 			invoker.execute();
+
 			// roll random number
 			Random rand = new Random();
 			int rn = rand.nextInt(3);
@@ -101,11 +117,11 @@ public class GameControl {
 	}
 
 	public void conflictCheck() {
-		// if there is atleast one enemy
+		// if there is at least one enemy
 		if (this.currentState.getEnemyList().size() > 0) {
 			int[] loc = this.currentState.getPlayer().getLocation();
 			ArrayList<Enemy> baddies = new ArrayList<Enemy>();
-			// loop through enemys
+			// loop through enemies
 			for (Enemy en : this.currentState.getEnemyList()) {
 				// if enemy location i same as players
 				if (Arrays.equals(loc, en.getLocation())) {
@@ -113,7 +129,6 @@ public class GameControl {
 					baddies.add(en);
 				}
 			}
-
 			if (baddies.size() > 0) {
 				System.out.println("A fight has broken out at " + Arrays.toString(loc) + "!");
 				if (baddies.size() == 1) {
@@ -135,6 +150,7 @@ public class GameControl {
 							this.currentState.removeEnemy(en);
 						}
 					}
+
 				} else {
 					System.out.println(this.currentState.getPlayer().getName()
 							+ " has been smooshed by many baddies!\nGame Ogre!");
@@ -142,6 +158,7 @@ public class GameControl {
 
 				}
 			}
+
 		} else {
 			return;
 		}
