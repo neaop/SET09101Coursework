@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="swampWars.actors.EnemySpawner" project="SET09101_coursework" 
+    file="/SET09101_coursework/src/swampWars/actors/EnemySpawner.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="146" x="167" y="9"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="swampWars.actors.Snake" project="SET09101_coursework" 
+    file="/SET09101_coursework/src/swampWars/actors/Snake.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="90" x="167" y="521"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="swampWars.actors.Parrot" project="SET09101_coursework" 
+    file="/SET09101_coursework/src/swampWars/actors/Parrot.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="90" x="297" y="521"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="swampWars.actors.Enemy" project="SET09101_coursework" 
+    file="/SET09101_coursework/src/swampWars/actors/Enemy.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="90" x="268" y="328"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="swampWars.actors.Donkey" project="SET09101_coursework" 
+    file="/SET09101_coursework/src/swampWars/actors/Donkey.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="90" x="427" y="521"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="swampWars.actors.Ogre" project="SET09101_coursework" 
+    file="/SET09101_coursework/src/swampWars/actors/Ogre.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="119" x="398" y="328"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="swampWars.actors.SwampDenizen" project="SET09101_coursework" 
+    file="/SET09101_coursework/src/swampWars/actors/SwampDenizen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="141" x="353" y="9"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="8">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="9">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="10">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="12">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

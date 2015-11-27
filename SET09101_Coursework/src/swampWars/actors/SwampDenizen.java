@@ -10,97 +10,41 @@ import swampWars.control.GameControl;
  * @author Sam Dixon
  *
  */
+@SuppressWarnings("serial")
 public abstract class SwampDenizen implements java.io.Serializable {
 
 	private int xCoord, yCoord;
 	private String name;
 
-	/**
-	 * Updates the actors coords to a new, random, adjecent tile
-	 */
 	public void move() {
-		boolean boolX = false, boolY = false;
-		// roll random adjacent values for each coord
-		int currentX = this.xCoord;
-		int currentY = this.yCoord;
-
-		int newX = this.changeCoord("X");
-		int newY = this.changeCoord("Y");
-
-		// if values are not different from current
-
-		if ((newX == currentX && newY == currentY)) {
-			this.move();
-		} else {
-			// update coords to new values
-			System.out.println(
-					this.getName() + " has moved from " + xCoord + ", " + yCoord + " to " + newX + ", " + newY);
-			this.xCoord = newX;
-			yCoord = newY;
-		}
-
-	}
-
-	/**
-	 * Returns a valid int to update a coord
-	 * 
-	 * @param coord
-	 *            The name of the coord to be updated
-	 * @return A new valid coord int
-	 */
-	private int changeCoord(String coord) {
-		// declare variables
-		int currentCoord = 0, newCoord = 0, rand = 0;
+		// define variables
 		Random rn = new Random();
-		// get max grid size
-		int max = GameControl.getGRIDSIZE();
+		int newX = this.xCoord;
+		int newY = this.yCoord;
+		int rand = 0;
 
-		// switch to select either X or Y coord
-		switch (coord) {
-		case "X":
-			currentCoord = this.xCoord;
-			break;
-		case "Y":
-			currentCoord = this.yCoord;
-			break;
+		// check if position hasn't changed or has moved off of grid
+		while ((newX == this.xCoord && newY == this.yCoord)
+				|| (newX > GameControl.getGRIDSIZE() || newY > GameControl.getGRIDSIZE()) || (newX < 0 || newY < 0)) {
+
+			// reset new position to be current position
+			newX = this.xCoord;
+			newY = this.yCoord;
+
+			// Generate number between -1 - 1
+			rand = rn.nextInt(3) - 1;
+			// add to current position
+			newX += rand;
+			rand = rn.nextInt(3) - 1;
+			newY += rand;
+
 		}
-		newCoord = currentCoord;
+		// print old coords and new coords
+		System.out.println(this.getName() + " has moved from " + xCoord + ", " + yCoord + " to " + newX + ", " + newY);
 
-		// if coord is at min edge
-		if (currentCoord == 0) {
-			// roll number
-			rand = rn.nextInt(2);
-			if (rand == 0) {
-
-			} else if (rand == 1) {
-				// move along one square
-				newCoord++;
-			}
-
-			// if coord is at max edge
-		} else if (currentCoord == max) {
-			// roll number
-			rand = rn.nextInt(2);
-			if (rand == 0) {
-
-			} else if (rand == 1) {
-				// move back one square
-				newCoord--;
-			}
-
-			// if coord is not at either edge
-
-		} else if ((currentCoord > 0) && (currentCoord < max)) {
-			rand = rn.nextInt(3);
-			if (rand == 0) {
-
-			} else if (rand == 1) {
-				newCoord--;
-			} else if (rand == 2) {
-				newCoord++;
-			}
-		}
-		return newCoord;
+		// update coords to new
+		this.xCoord = newX;
+		this.yCoord = newY;
 	}
 
 	public int getXCoord() {
