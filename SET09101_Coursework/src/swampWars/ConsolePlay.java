@@ -4,16 +4,43 @@ import java.util.Scanner;
 
 import swampWars.control.GameControl;
 
-public class Test {
+public class ConsolePlay {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
+		boolean play = true;
+		while (play) {
+			System.out.println("Welcome to:\nSWAMP WARS!\n");
+			System.out.println("Would you like to start a new Game?\ny/n");
+			String choice = scanner.nextLine();
+			if (choice.equals("y")) {
+				newGame();
+			} else {
+				play = (!play);
+			}
+		}
+		System.out.println("Thanks for playing!");
+		System.exit(0);
 
-		System.out.println("Welcome to:\nSWAMP WARS!\nPlease enter a name for your Ogre:");
+	}
+
+	private static void newGame() {
+		@SuppressWarnings("resource")
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Please enter a name for your Ogre:");
 		String ogreName = scanner.next();
+		System.out.println("Please enter the size of your swamp(a number between 4 - 10):");
+		int size = scanner.nextInt();
+		if (!(size <= 4) || !(size >= 10)) {
+			GameControl.setGRIDSIZE(size - 1);
+		} else {
+			GameControl.setGRIDSIZE(3);
+		}
+
 		System.out.println(
 				"A new game is starting\nType move to move!\nType undo to go back a turn!\nType redo to go forward a turn!\nType diet to change "
-						+ ogreName + "'s Diet!\n");
+						+ ogreName + "'s Diet!\nType quit to Quit!");
 		try {
 			Thread.sleep(2500);
 		} catch (InterruptedException ex) {
@@ -44,11 +71,15 @@ public class Test {
 				} else {
 					System.out.println("Invalid command. Pleas try again.");
 				}
+			} else if (command.equals("quit")) {
+				break;
 			} else {
 				System.out.println("Command not recognized. Pleas try another.");
 			}
 			gc.display();
 		}
-	}
+		gc.gameOver();
+		System.out.println("\n");
 
+	}
 }

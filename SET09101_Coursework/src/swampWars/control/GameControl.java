@@ -32,14 +32,16 @@ public class GameControl {
 	 *            name of players character
 	 */
 	public GameControl(String name) {
-		System.out.println("Turn: " + this.turnCount);
 		Ogre ogre = new Ogre(name);
+
+		this.turnCount = 1;
 		this.gameOgre = false;
 		this.undo = new Stack<SwampState>();
 		this.redo = new Stack<SwampState>();
-		this.turnCount = 1;
 		this.setCurrentState(new SwampState());
 		this.getCurrentState().setPlayer(ogre);
+
+		System.out.println("Turn: " + this.turnCount);
 
 	}
 
@@ -49,6 +51,7 @@ public class GameControl {
 	public void nextTurn() {
 		// check if the ogre is still alive
 		if (!this.gameOgre) {
+
 			// increment turn counter
 			this.turnCount++;
 			System.out.println("Turn: " + this.turnCount);
@@ -97,7 +100,8 @@ public class GameControl {
 				Thread.currentThread().interrupt();
 			}
 			this.conflictCheck();
-
+			System.out.println();
+		} else {
 		}
 	}
 
@@ -168,13 +172,14 @@ public class GameControl {
 				if (baddies.size() == 1) {
 					System.out.println(this.currentState.getPlayer().getName() + " has smooshed a "
 							+ ((Enemy) baddies.get(0)).getName() + "!");
+					this.currentState.getPlayer().addSmoosh();
 					this.currentState.removeEnemy((Enemy) baddies.get(0));
 
 				} else if (baddies.size() == 2) {
 					Diet diet = this.currentState.getPlayer().getDiet();
 					if (!(diet instanceof EnemyDiet)) {
 						System.out.println(this.currentState.getPlayer().getName() + " has been smooshed by a "
-								+ baddies.get(0).getName() + " and a " + baddies.get(1).getName() + "!\nGame Ogre!");
+								+ baddies.get(0).getName() + " and a " + baddies.get(1).getName() + "!\n");
 						this.gameOgre = true;
 
 					} else {
@@ -182,6 +187,7 @@ public class GameControl {
 								+ baddies.get(0).getName() + " and a " + baddies.get(1).getName() + "!");
 						for (Enemy en : baddies) {
 							this.currentState.removeEnemy(en);
+							this.currentState.getPlayer().addSmoosh();
 						}
 					}
 
@@ -221,6 +227,14 @@ public class GameControl {
 			}
 			System.out.print("\n");
 		}
+	}
+
+	public void gameOver() {
+		if (this.gameOgre) {
+			this.gameOgre = (!gameOgre);
+		}
+		System.out.println("GAME OGRE!\nYou survived " + this.turnCount + " turns and smooshed "
+				+ this.currentState.getPlayer().getSmooshCounter() + " enemies!");
 	}
 
 	// getters/setters

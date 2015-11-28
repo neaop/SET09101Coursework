@@ -12,8 +12,11 @@ import swampWars.strategy.MacDiet;
 public class Ogre extends SwampDenizen {
 
 	private Diet diet;
+	private int smooshCounter;
 
 	public Ogre(String name) {
+		this.smooshCounter = 0;
+
 		Random rand = new Random();
 		int startX, startY;
 		startX = rand.nextInt(GameControl.getGRIDSIZE() + 1);
@@ -54,6 +57,14 @@ public class Ogre extends SwampDenizen {
 
 	public void setDiet(Diet diet) {
 		this.diet = diet;
+	}
+
+	public int getSmooshCounter() {
+		return smooshCounter;
+	}
+
+	public void addSmoosh() {
+		this.smooshCounter++;
 	}
 
 }
