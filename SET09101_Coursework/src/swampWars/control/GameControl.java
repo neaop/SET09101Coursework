@@ -32,6 +32,7 @@ public class GameControl {
 	 *            name of players character
 	 */
 	public GameControl(String name) {
+		System.out.println("Turn: " + this.turnCount);
 		Ogre ogre = new Ogre(name);
 		this.gameOgre = false;
 		this.undo = new Stack<SwampState>();
@@ -39,6 +40,7 @@ public class GameControl {
 		this.turnCount = 1;
 		this.setCurrentState(new SwampState());
 		this.getCurrentState().setPlayer(ogre);
+
 	}
 
 	/**
@@ -49,6 +51,7 @@ public class GameControl {
 		if (!this.gameOgre) {
 			// increment turn counter
 			this.turnCount++;
+			System.out.println("Turn: " + this.turnCount);
 
 			// empty redo stack
 			this.redo.clear();
@@ -64,7 +67,7 @@ public class GameControl {
 			// add to invoker
 			this.invoker.addCommand(move);
 
-			// declare new array for senemy move commands
+			// declare new array for enemy move commands
 			CommandGenerator[] cg = new CommandGenerator[this.currentState.getEnemyList().size()];
 
 			// loop through every enemy
@@ -87,10 +90,14 @@ public class GameControl {
 
 			// execute all move commands
 			invoker.execute();
-
 			this.rollEnemy();
-
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException ex) {
+				Thread.currentThread().interrupt();
+			}
 			this.conflictCheck();
+
 		}
 	}
 
@@ -196,10 +203,9 @@ public class GameControl {
 	 */
 	public void display() {
 		if (!this.gameOgre) {
-			System.out.println("Turn: " + this.turnCount);
 			for (int i = 0; i <= GameControl.GRIDSIZE; i++) {
 				for (int j = 0; j <= GameControl.GRIDSIZE; j++) {
-					System.out.print("[" + i + "," + j);
+					System.out.print("[" + i + ", " + j);
 					Ogre og = this.currentState.getPlayer();
 					if (og.getXCoord() == i && og.getYCoord() == j) {
 						System.out.print(" O");
@@ -249,6 +255,10 @@ public class GameControl {
 
 	public static void setGRIDSIZE(int gridSize) {
 		GRIDSIZE = gridSize;
+	}
+
+	public boolean isGameOgre() {
+		return gameOgre;
 	}
 
 }

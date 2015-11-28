@@ -6,7 +6,7 @@ public class KnightDiet implements Diet, Serializable {
 
 	@Override
 	public void Diet() {
-		System.out.println("I am hungry for Knights (in shining armor)!");
+		System.out.print("I am hungry for Knights (in shining armor)!");
 	}
 
 }

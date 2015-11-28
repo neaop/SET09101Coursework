@@ -6,7 +6,7 @@ public class MacDiet implements Diet, Serializable {
 
 	@Override
 	public void Diet() {
-		System.out.println("I am hungry for Very-Big-Macs®!");
+		System.out.print("I am hungry for Very-Big-Macs®!");
 	}
 
 }

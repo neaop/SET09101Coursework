@@ -8,6 +8,7 @@ import swampWars.strategy.EnemyDiet;
 import swampWars.strategy.KnightDiet;
 import swampWars.strategy.MacDiet;
 
+@SuppressWarnings("serial")
 public class Ogre extends SwampDenizen {
 
 	private Diet diet;

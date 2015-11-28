@@ -2,11 +2,12 @@ package swampWars.strategy;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class EnemyDiet implements Diet, Serializable {
 
 	@Override
 	public void Diet() {
-		System.out.println("I am hungry for Ogre Enemies!");
+		System.out.print("I am hungry for Ogre Enemies!");
 	}
 
 }
