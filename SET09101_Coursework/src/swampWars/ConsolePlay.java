@@ -30,12 +30,19 @@ public class ConsolePlay {
 
 		System.out.println("Please enter a name for your Ogre:");
 		String ogreName = scanner.nextLine();
-		System.out.println("Please enter the size of your swamp(a number between 4 - 10):");
-		int size = scanner.nextInt();
-		if (!(size <= 4) || !(size >= 10)) {
-			GameControl.setGRIDSIZE(size - 1);
+		System.out.println("Please enter the height of your swamp(a number between 4 - 10):");
+		int xSize = scanner.nextInt();
+		if (!(xSize <= 4) || !(xSize >= 10)) {
+			GameControl.setX_SIZE(xSize - 1);
 		} else {
-			GameControl.setGRIDSIZE(3);
+			GameControl.setX_SIZE(3);
+		}
+		System.out.println("Please enter the width of your swamp(a number between 4 - 10):");
+		int ySize = scanner.nextInt();
+		if (!(ySize <= 4) || !(ySize >= 10)) {
+			GameControl.setY_SIZE(ySize - 1);
+		} else {
+			GameControl.setY_SIZE(3);
 		}
 
 		System.out.println(

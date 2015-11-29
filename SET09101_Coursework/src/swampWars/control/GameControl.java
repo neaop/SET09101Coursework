@@ -213,8 +213,8 @@ public class GameControl {
 	 */
 	public void display() {
 		if (!this.gameOgre) {
-			for (int i = 0; i <= GameControl.GRIDSIZE; i++) {
-				for (int j = 0; j <= GameControl.GRIDSIZE; j++) {
+			for (int i = 0; i <= GameControl.X_SIZE; i++) {
+				for (int j = 0; j <= GameControl.Y_SIZE; j++) {
 					System.out.print("[" + i + ", " + j);
 					Ogre og = this.currentState.getPlayer();
 					if (og.getXCoord() == i && og.getYCoord() == j) {
@@ -277,6 +277,22 @@ public class GameControl {
 
 	public boolean isGameOgre() {
 		return gameOgre;
+	}
+
+	public static int getX_SIZE() {
+		return X_SIZE;
+	}
+
+	public static void setX_SIZE(int x_SIZE) {
+		X_SIZE = x_SIZE;
+	}
+
+	public static int getY_SIZE() {
+		return Y_SIZE;
+	}
+
+	public static void setY_SIZE(int y_SIZE) {
+		Y_SIZE = y_SIZE;
 	}
 
 }

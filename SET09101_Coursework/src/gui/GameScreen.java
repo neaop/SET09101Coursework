@@ -8,6 +8,12 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class GameScreen extends JDialog {
 
@@ -35,17 +41,54 @@ public class GameScreen extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
-
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 440, 440);
-		contentPanel.add(panel);
-		panel.setLayout(null);
+		contentPanel.setLayout(new FormLayout(
+				new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
+						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
+						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), },
+				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("default:grow"), }));
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(460, 11, 114, 440);
-		contentPanel.add(panel_1);
-		panel_1.setLayout(null);
-	}
+		contentPanel.add(panel_1, "2, 2, 36, 1, fill, fill");
 
+		JPanel panel = new JPanel();
+		contentPanel.add(panel, "38, 2, 9, 1, fill, fill");
+		panel.setLayout(null);
+
+		JButton btnMove = new JButton("Move");
+		btnMove.setBounds(16, 11, 89, 23);
+		panel.add(btnMove);
+
+		JButton btnUndo = new JButton("Undo");
+		btnUndo.setBounds(16, 45, 89, 23);
+		panel.add(btnUndo);
+
+		JButton btnRedo = new JButton("Redo");
+		btnRedo.setBounds(16, 79, 89, 23);
+		panel.add(btnRedo);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(16, 151, 89, 20);
+		panel.add(comboBox);
+
+		JLabel lblDiet = new JLabel("Diet:");
+		lblDiet.setBounds(16, 126, 46, 14);
+		panel.add(lblDiet);
+
+		JButton btnQuit = new JButton("Quit");
+		btnQuit.setBounds(16, 412, 89, 23);
+		panel.add(btnQuit);
+	}
 }
