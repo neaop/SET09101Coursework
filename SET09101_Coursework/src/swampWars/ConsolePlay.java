@@ -29,7 +29,7 @@ public class ConsolePlay {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("Please enter a name for your Ogre:");
-		String ogreName = scanner.next();
+		String ogreName = scanner.nextLine();
 		System.out.println("Please enter the size of your swamp(a number between 4 - 10):");
 		int size = scanner.nextInt();
 		if (!(size <= 4) || !(size >= 10)) {
@@ -40,7 +40,7 @@ public class ConsolePlay {
 
 		System.out.println(
 				"A new game is starting\nType move to move!\nType undo to go back a turn!\nType redo to go forward a turn!\nType diet to change "
-						+ ogreName + "'s Diet!\nType quit to Quit!");
+						+ ogreName + "'s Diet!\nType quit to Quit!\n");
 		try {
 			Thread.sleep(2500);
 		} catch (InterruptedException ex) {
@@ -68,6 +68,9 @@ public class ConsolePlay {
 					gc.getCurrentState().getPlayer().updateDiet(choice);
 					gc.getCurrentState().getPlayer().getDiet().Diet();
 					System.out.println("\n");
+					System.out.print(ogreName + " says:\n'");
+					gc.getCurrentState().getPlayer().getDiet().Diet();
+					System.out.print("'\n");
 				} else {
 					System.out.println("Invalid command. Pleas try again.");
 				}

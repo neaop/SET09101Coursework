@@ -19,6 +19,10 @@ import swampWars.strategy.EnemyDiet;
 public class GameControl {
 
 	private static int GRIDSIZE = 3;
+
+	private static int X_SIZE = 3;
+	private static int Y_SIZE = 3;
+
 	private int turnCount;
 	private boolean gameOgre;
 	private Stack<SwampState> undo, redo;
