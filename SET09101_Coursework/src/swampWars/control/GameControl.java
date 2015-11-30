@@ -18,11 +18,8 @@ import swampWars.strategy.EnemyDiet;
 
 public class GameControl {
 
-	private static int GRIDSIZE = 3;
-
 	private static int X_SIZE = 3;
 	private static int Y_SIZE = 3;
-
 	private int turnCount;
 	private boolean gameOgre;
 	private Stack<SwampState> undo, redo;
@@ -45,8 +42,6 @@ public class GameControl {
 		this.setCurrentState(new SwampState());
 		this.getCurrentState().setPlayer(ogre);
 
-		System.out.println("Turn: " + this.turnCount);
-
 	}
 
 	/**
@@ -58,7 +53,6 @@ public class GameControl {
 
 			// increment turn counter
 			this.turnCount++;
-			System.out.println("Turn: " + this.turnCount);
 
 			// empty redo stack
 			this.redo.clear();
@@ -208,31 +202,6 @@ public class GameControl {
 		}
 	}
 
-	/**
-	 * 
-	 */
-	public void display() {
-		if (!this.gameOgre) {
-			for (int i = 0; i <= GameControl.X_SIZE; i++) {
-				for (int j = 0; j <= GameControl.Y_SIZE; j++) {
-					System.out.print("[" + i + ", " + j);
-					Ogre og = this.currentState.getPlayer();
-					if (og.getXCoord() == i && og.getYCoord() == j) {
-						System.out.print(" O");
-					}
-					for (SwampDenizen actor : currentState.getEnemyList()) {
-						if (actor.getXCoord() == i && actor.getYCoord() == j) {
-							System.out.print(" " + actor.getName().substring(0, 1));
-						}
-					}
-					System.out.print("]");
-				}
-				System.out.print("\n");
-			}
-			System.out.print("\n");
-		}
-	}
-
 	public void gameOver() {
 		if (this.gameOgre) {
 			this.gameOgre = (!gameOgre);
@@ -267,14 +236,6 @@ public class GameControl {
 		this.currentState = currentState;
 	}
 
-	public static int getGRIDSIZE() {
-		return GRIDSIZE;
-	}
-
-	public static void setGRIDSIZE(int gridSize) {
-		GRIDSIZE = gridSize;
-	}
-
 	public boolean isGameOgre() {
 		return gameOgre;
 	}
@@ -293,6 +254,10 @@ public class GameControl {
 
 	public static void setY_SIZE(int y_SIZE) {
 		Y_SIZE = y_SIZE;
+	}
+
+	public int getTurnCount() {
+		return turnCount;
 	}
 
 }

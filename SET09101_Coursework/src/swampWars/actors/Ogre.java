@@ -19,8 +19,8 @@ public class Ogre extends SwampDenizen {
 
 		Random rand = new Random();
 		int startX, startY;
-		startX = rand.nextInt(GameControl.getGRIDSIZE() + 1);
-		startY = rand.nextInt(GameControl.getGRIDSIZE() + 1);
+		startX = rand.nextInt(GameControl.getX_SIZE() + 1);
+		startY = rand.nextInt(GameControl.getY_SIZE() + 1);
 
 		if (startX == 0 && startY == 0) {
 			int select = rand.nextInt(2);
