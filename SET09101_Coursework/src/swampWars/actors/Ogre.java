@@ -43,9 +43,9 @@ public class Ogre extends SwampDenizen {
 
 	public void updateDiet(int type) {
 		if (type == 0) {
-			this.setDiet(new EnemyDiet());
-		} else if (type == 1) {
 			this.setDiet(new KnightDiet());
+		} else if (type == 1) {
+			this.setDiet(new EnemyDiet());
 		} else if (type == 2) {
 			this.setDiet(new MacDiet());
 		}

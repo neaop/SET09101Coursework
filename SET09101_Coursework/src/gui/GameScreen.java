@@ -32,10 +32,13 @@ public class GameScreen extends JFrame {
 	private JPanel gui = new JPanel(new BorderLayout(3, 3));
 	private JPanel gameBoard;
 	private JPanel buttons;
-	private static int xSize = 7, ySize = 4;
+	private static int xSize = 4, ySize = 4;
 	private static String ogreName;
 	private static GameControl gc;
 	private JLabel swampSquares[][];
+	private final JButton move, undo, redo;
+
+	private final JComboBox dietList;
 
 	/**
 	 * Launch the application.
@@ -46,8 +49,6 @@ public class GameScreen extends JFrame {
 				try {
 					GameScreen frame = new GameScreen(xSize, ySize, ogreName);
 					frame.setVisible(true);
-					// frame.updateGrid();
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -95,7 +96,7 @@ public class GameScreen extends JFrame {
 		buttons = new JPanel();
 
 		buttons.setLayout(new GridLayout(4, 0));
-		JButton move = new JButton("Move");
+		move = new JButton("Move");
 		buttons.add(move);
 		move.addActionListener(new ActionListener() {
 			@Override
@@ -105,7 +106,7 @@ public class GameScreen extends JFrame {
 			}
 		});
 
-		JButton undo = new JButton("Undo");
+		undo = new JButton("Undo");
 		buttons.add(undo);
 		undo.addActionListener(new ActionListener() {
 			@Override
@@ -115,7 +116,7 @@ public class GameScreen extends JFrame {
 			}
 		});
 
-		JButton redo = new JButton("Redo");
+		redo = new JButton("Redo");
 		buttons.add(redo);
 		redo.addActionListener(new ActionListener() {
 			@Override
@@ -125,20 +126,37 @@ public class GameScreen extends JFrame {
 			}
 		});
 
-		String[] petStrings = { "Hungry for Knights!", "Hungry for Enemies!", "Hungry for Burgers!" };
+		String[] dietSrtings = { "Hungry for Knights!", "Hungry for Enemies!", "Hungry for Burgers!" };
 
 		// Create the combo box, select item at index 4.
 		// Indices start at 0, so 4 specifies the pig.
-		JComboBox petList = new JComboBox(petStrings);
-		petList.setSelectedIndex(0);
+		dietList = new JComboBox(dietSrtings);
+		dietList.setSelectedIndex(0);
+		dietList.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int dietNum = dietList.getSelectedIndex();
+				System.out.println(dietNum);
+				gc.getCurrentState().getPlayer().updateDiet(dietNum);
+				System.out.println(gc.getCurrentState().getPlayer().getDiet());
+			}
+		});
 
-		buttons.add(petList);
+		buttons.add(dietList);
 
 		gui.add(buttons);
 		updateGrid();
+
 	}
 
 	private void updateGrid() {
+		if (gc.isGameOgre()) {
+			move.setEnabled(false);
+			undo.setEnabled(false);
+			redo.setEnabled(false);
+			dietList.setEnabled(false);
+
+		}
 
 		for (int x = 0; x < this.xSize; x++) {
 			for (int y = 0; y < this.ySize; y++) {
