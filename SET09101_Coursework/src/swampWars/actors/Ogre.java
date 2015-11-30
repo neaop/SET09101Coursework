@@ -8,39 +8,52 @@ import swampWars.strategy.EnemyDiet;
 import swampWars.strategy.KnightDiet;
 import swampWars.strategy.MacDiet;
 
+// class for player character
 @SuppressWarnings("serial")
 public class Ogre extends SwampDenizen {
 
 	private Diet diet;
 	private int smooshCounter;
 
+	// constructor
 	public Ogre(String name) {
+		// set number of enemies killed to 0
 		this.smooshCounter = 0;
 
+		// new random
 		Random rand = new Random();
 		int startX, startY;
+		// roll stariting locations
 		startX = rand.nextInt(GameControl.getX_SIZE() + 1);
 		startY = rand.nextInt(GameControl.getY_SIZE() + 1);
 
+		// check that start is top left
 		if (startX == 0 && startY == 0) {
-			int select = rand.nextInt(2);
+			// roll random
+			int select = rand.nextInt(0);
 			if (select == 0) {
+				// increase x by one
 				startX++;
 			}
 			if (select == 1) {
+				// increase y by one
 				startY++;
 			}
 		}
+		// define start location
 		this.setXCoord(startX);
 		this.setYCoord(startY);
 
+		// define name
 		this.setName(name);
 
-		updateDiet(1);
+		// set starting diet
+		updateDiet(0);
 
 		System.out.println(this.getName() + " is at " + this.getXCoord() + ", " + this.getYCoord() + ".");
 	}
 
+	// change the ogre's current diet
 	public void updateDiet(int type) {
 		if (type == 0) {
 			this.setDiet(new KnightDiet());
