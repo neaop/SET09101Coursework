@@ -1,94 +1,167 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import swampWars.actors.Enemy;
+import swampWars.actors.Ogre;
+import swampWars.actors.SwampDenizen;
+import swampWars.control.GameControl;
+
 import java.awt.GridLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-public class GameScreen extends JDialog {
+public class GameScreen extends JFrame {
 
-	private final JPanel contentPanel = new JPanel();
+	private JPanel gui = new JPanel(new BorderLayout(3, 3));
+	private JPanel gameBoard;
+	private JPanel buttons;
+	private static int xSize = 4, ySize = 4;
+	private static String ogreName;
+	private static GameControl gc;
+	private JLabel swampSquares[][];
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			GameScreen dialog = new GameScreen();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GameScreen frame = new GameScreen(xSize, ySize, ogreName);
+					frame.setVisible(true);
+					frame.updateGrid();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
-	 * Create the dialog.
+	 * Create the frame.
 	 */
-	public GameScreen() {
-		setTitle("SwampWars");
-		setBounds(100, 100, 600, 500);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new FormLayout(
-				new ColumnSpec[] { FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"),
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC,
-						FormSpecs.DEFAULT_COLSPEC, FormSpecs.RELATED_GAP_COLSPEC, FormSpecs.DEFAULT_COLSPEC,
-						FormSpecs.RELATED_GAP_COLSPEC, ColumnSpec.decode("default:grow"), },
-				new RowSpec[] { FormSpecs.RELATED_GAP_ROWSPEC, RowSpec.decode("default:grow"), }));
+	public GameScreen(int xSize, int ySize, String name) {
+		this.xSize = xSize;
+		this.ySize = ySize;
+		this.ogreName = name;
 
-		JPanel panel_1 = new JPanel();
-		contentPanel.add(panel_1, "2, 2, 36, 1, fill, fill");
+		GameControl.setX_SIZE(this.xSize - 1);
+		GameControl.setY_SIZE(this.ySize - 1);
 
-		JPanel panel = new JPanel();
-		contentPanel.add(panel, "38, 2, 9, 1, fill, fill");
-		panel.setLayout(null);
+		this.gc = new GameControl(this.ogreName);
 
-		JButton btnMove = new JButton("Move");
-		btnMove.setBounds(16, 11, 89, 23);
-		panel.add(btnMove);
+		this.swampSquares = new JLabel[this.xSize][this.ySize];
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, (xSize * 55) + 20, (ySize * 55) + 200);
+		gui.setBorder(new EmptyBorder(5, 5, 5, 5));
+		// gui.setLayout(new BorderLayout());
+		setContentPane(gui);
 
-		JButton btnUndo = new JButton("Undo");
-		btnUndo.setBounds(16, 45, 89, 23);
-		panel.add(btnUndo);
+		gameBoard = new JPanel();
+		gui.add(gameBoard, BorderLayout.PAGE_START);
+		gameBoard.setLayout(new GridLayout(this.ySize, this.ySize, 0, 0));
+		gameBoard.setBorder(new LineBorder(Color.BLACK, 5));
 
-		JButton btnRedo = new JButton("Redo");
-		btnRedo.setBounds(16, 79, 89, 23);
-		panel.add(btnRedo);
+		for (int x = 0; x < this.xSize; x++) {
+			for (int y = 0; y < this.ySize; y++) {
+				JLabel l = new JLabel(x + "," + y);
+				ImageIcon icon = new ImageIcon(new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB));
+				l.setIcon(icon);
+				l.setBorder(new LineBorder(Color.BLACK));
+				l.setHorizontalTextPosition(JLabel.CENTER);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(16, 151, 89, 20);
-		panel.add(comboBox);
+				swampSquares[x][y] = l;
+			}
+		}
+		for (int x = 0; x < GameControl.getX_SIZE(); x++) {
+			for (int y = 0; y < GameControl.getX_SIZE(); y++) {
+				gameBoard.add(swampSquares[x][y]);
+			}
+		}
+		buttons = new JPanel();
 
-		JLabel lblDiet = new JLabel("Diet:");
-		lblDiet.setBounds(16, 126, 46, 14);
-		panel.add(lblDiet);
+		buttons.setLayout(new GridLayout(4, 0));
+		JButton move = new JButton("Move");
+		buttons.add(move);
+		move.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gc.nextTurn();
+				updateGrid();
+			}
+		});
 
-		JButton btnQuit = new JButton("Quit");
-		btnQuit.setBounds(16, 412, 89, 23);
-		panel.add(btnQuit);
+		JButton undo = new JButton("Undo");
+		buttons.add(undo);
+		undo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gc.undo();
+				updateGrid();
+			}
+		});
+
+		JButton redo = new JButton("Redo");
+		buttons.add(redo);
+		redo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gc.redo();
+				updateGrid();
+			}
+		});
+		gui.add(buttons);
+		this.updateGrid();
 	}
+
+	private void updateGrid() {
+
+		for (int x = 0; x < this.xSize; x++) {
+			for (int y = 0; y < this.ySize; y++) {
+				// swampSquares[x][y].setText("");
+				ImageIcon icon = new ImageIcon(new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB));
+				swampSquares[x][y].setIcon(icon);
+			}
+		}
+
+		ArrayList<Enemy> el = gc.getCurrentState().getEnemyList();
+		Ogre og = gc.getCurrentState().getPlayer();
+		for (int x = 0; x < xSize; x++) {
+			for (int y = 0; y < ySize; y++) {
+				int count = 0;
+
+				if ((og.getXCoord() == x) && (og.getYCoord() == y)) {
+					ImageIcon ogreIcon = new ImageIcon("src/resources/Ogre.jpg");
+					swampSquares[x][y].setIcon(ogreIcon);
+					swampSquares[x][y].setHorizontalTextPosition(JLabel.CENTER);
+				}
+				for (Enemy en : el) {
+					if ((en.getXCoord() == x && en.getYCoord() == y)) {
+						count++;
+						ImageIcon icon = new ImageIcon("src/resources/" + en.getName() + ".jpg");
+						swampSquares[x][y].setIcon(icon);
+						swampSquares[x][y].setText(count + "");
+						swampSquares[x][y].setHorizontalTextPosition(JLabel.CENTER);
+					}
+				}
+			}
+		}
+	}
+
 }

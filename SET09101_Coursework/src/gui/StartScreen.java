@@ -13,8 +13,9 @@ import java.awt.event.ActionEvent;
 public class StartScreen {
 
 	private JFrame frmSwampwars;
-	private JTextField textField;
-	private int swampSize = 4;
+	private JTextField txtName;
+	private int swampXSize = 4;
+	private int swampYSize = 4;
 	private String ogreName;
 
 	/**
@@ -46,77 +47,130 @@ public class StartScreen {
 	private void initialize() {
 		frmSwampwars = new JFrame();
 		frmSwampwars.setTitle("SwampWars");
-		frmSwampwars.setBounds(100, 100, 258, 210);
+		frmSwampwars.setBounds(100, 100, 316, 176);
 		frmSwampwars.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSwampwars.getContentPane().setLayout(null);
 
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameScreen gs = new GameScreen();
-				gs.setVisible(true);
+
+				String tempName = txtName.getText();
+
+				if ((tempName != null) && (tempName.trim().length() > 0)) {
+					ogreName = tempName;
+					GameScreen gs = new GameScreen(swampXSize, swampYSize, ogreName);
+					gs.setVisible(true);
+				}
+
 			}
 		});
-		btnStartGame.setBounds(128, 138, 104, 23);
+		btnStartGame.setBounds(142, 111, 104, 23);
 		frmSwampwars.getContentPane().add(btnStartGame);
 
-		textField = new JTextField();
-		textField.setBounds(84, 38, 148, 20);
-		frmSwampwars.getContentPane().add(textField);
-		textField.setColumns(10);
+		txtName = new JTextField();
+		txtName.setText("Drek");
+		txtName.setBounds(120, 11, 148, 20);
+		frmSwampwars.getContentPane().add(txtName);
+		txtName.setColumns(10);
 
 		JLabel lblOgreName = new JLabel("Ogre Name:");
-		lblOgreName.setBounds(4, 41, 78, 14);
+		lblOgreName.setBounds(10, 14, 78, 14);
 		frmSwampwars.getContentPane().add(lblOgreName);
 
-		JLabel lblSwampSize = new JLabel("Swamp Size:");
-		lblSwampSize.setBounds(4, 80, 78, 14);
-		frmSwampwars.getContentPane().add(lblSwampSize);
+		JLabel lblSwampWidth = new JLabel("Swamp Width:");
+		lblSwampWidth.setBounds(10, 45, 100, 14);
+		frmSwampwars.getContentPane().add(lblSwampWidth);
 
-		final JButton buttonBigger = new JButton("\u2192");
-		buttonBigger.setBounds(179, 76, 53, 23);
-		frmSwampwars.getContentPane().add(buttonBigger);
+		final JButton buttonXBigger = new JButton("\u2192");
+		buttonXBigger.setBounds(215, 41, 53, 23);
+		frmSwampwars.getContentPane().add(buttonXBigger);
 
-		final JButton buttonSmaller = new JButton("\u2190");
-		buttonSmaller.setEnabled(false);
-		buttonSmaller.setBounds(84, 76, 53, 23);
-		frmSwampwars.getContentPane().add(buttonSmaller);
+		final JButton buttonXSmaller = new JButton("\u2190");
+		buttonXSmaller.setEnabled(false);
+		buttonXSmaller.setBounds(120, 41, 53, 23);
+		frmSwampwars.getContentPane().add(buttonXSmaller);
 
-		final JLabel lblSize = new JLabel(swampSize + "x" + swampSize);
-		lblSize.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSize.setBounds(134, 81, 46, 14);
-		frmSwampwars.getContentPane().add(lblSize);
+		final JLabel lblXSize = new JLabel("" + swampXSize);
+		lblXSize.setHorizontalAlignment(SwingConstants.CENTER);
+		lblXSize.setBounds(170, 46, 46, 14);
+		frmSwampwars.getContentPane().add(lblXSize);
 
-		buttonBigger.addActionListener(new ActionListener() {
+		JLabel lblSwampHieght = new JLabel("Swamp Hieght:");
+		lblSwampHieght.setBounds(10, 74, 100, 14);
+		frmSwampwars.getContentPane().add(lblSwampHieght);
+
+		final JButton buttonYSmaller = new JButton("\u2190");
+
+		buttonYSmaller.setEnabled(false);
+		buttonYSmaller.setBounds(120, 70, 53, 23);
+		frmSwampwars.getContentPane().add(buttonYSmaller);
+
+		final JLabel lblYSize = new JLabel("" + swampYSize);
+		lblYSize.setHorizontalAlignment(SwingConstants.CENTER);
+		lblYSize.setBounds(170, 75, 46, 14);
+		frmSwampwars.getContentPane().add(lblYSize);
+
+		final JButton buttonYBigger = new JButton("\u2192");
+
+		buttonYBigger.setBounds(215, 70, 53, 23);
+		frmSwampwars.getContentPane().add(buttonYBigger);
+
+		buttonXBigger.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				swampSize++;
-				lblSize.setText(swampSize + "x" + swampSize);
-				if (swampSize > 4) {
-					buttonSmaller.setEnabled(true);
+				swampXSize++;
+				lblXSize.setText("" + swampXSize);
+				if (swampXSize > 4) {
+					buttonXSmaller.setEnabled(true);
 				}
-				if (swampSize >= 10) {
-					buttonBigger.setEnabled(false);
+				if (swampXSize >= 8) {
+					buttonXBigger.setEnabled(false);
 				}
 			}
 		});
 
-		buttonSmaller.addActionListener(new ActionListener() {
+		buttonXSmaller.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				swampSize--;
-				lblSize.setText(swampSize + "x" + swampSize);
-				if (swampSize <= 4) {
-					buttonSmaller.setEnabled(false);
+				swampXSize--;
+				lblXSize.setText("" + swampXSize);
+				if (swampXSize <= 4) {
+					buttonXSmaller.setEnabled(false);
 				}
-				if (swampSize < 10) {
-					buttonBigger.setEnabled(true);
+				if (swampXSize < 8) {
+					buttonXBigger.setEnabled(true);
 				}
 			}
 		});
 
+		buttonYSmaller.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				swampYSize--;
+				lblYSize.setText("" + swampYSize);
+				if (swampYSize <= 4) {
+					buttonYSmaller.setEnabled(false);
+				}
+				if (swampYSize < 8) {
+					buttonYBigger.setEnabled(true);
+				}
+			}
+		});
+
+		buttonYBigger.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				swampYSize++;
+				lblYSize.setText("" + swampYSize);
+				if (swampYSize > 4) {
+					buttonYSmaller.setEnabled(true);
+				}
+				if (swampYSize >= 8) {
+					buttonYBigger.setEnabled(false);
+				}
+			}
+		});
 	}
 
 	public int getSwampSize() {
-		return swampSize;
+		return swampXSize;
 	}
 
 	public String getOgreName() {

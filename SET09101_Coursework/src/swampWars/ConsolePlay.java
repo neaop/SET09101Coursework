@@ -122,7 +122,7 @@ public class ConsolePlay {
 	private static void printHelp() {
 		System.out.println(
 				"Type move to move!\nType undo to go back a turn!\nType redo to go forward a turn!\nType diet to change "
-						+ ogreName + "'s Diet!\nType exit to Exit!\n");
+						+ ogreName + "'s Diet!\nType quit to Quit!\n");
 	}
 
 	private static void printTurn(GameControl gc) {
@@ -135,15 +135,15 @@ public class ConsolePlay {
 
 	private static void display(GameControl gc) {
 		if (!gc.isGameOgre()) {
-			for (int i = 0; i <= GameControl.getY_SIZE(); i++) {
-				for (int j = 0; j <= GameControl.getX_SIZE(); j++) {
-					System.out.print("[" + i + ", " + j);
+			for (int y = 0; y <= GameControl.getY_SIZE(); y++) {
+				for (int x = 0; x <= GameControl.getX_SIZE(); x++) {
+					System.out.print("[" + x + ", " + y);
 					Ogre og = gc.getCurrentState().getPlayer();
-					if (og.getXCoord() == i && og.getYCoord() == j) {
+					if (og.getXCoord() == x && og.getYCoord() == y) {
 						System.out.print(" O");
 					}
 					for (SwampDenizen actor : gc.getCurrentState().getEnemyList()) {
-						if (actor.getXCoord() == i && actor.getYCoord() == j) {
+						if (actor.getXCoord() == x && actor.getYCoord() == y) {
 							System.out.print(" " + actor.getName().substring(0, 1));
 						}
 					}
