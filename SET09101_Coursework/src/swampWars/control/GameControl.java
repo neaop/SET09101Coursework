@@ -92,11 +92,6 @@ public class GameControl {
 			// execute all move commands
 			invoker.execute();
 			this.rollEnemy();
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException ex) {
-				Thread.currentThread().interrupt();
-			}
 			this.conflictCheck();
 			System.out.println();
 		} else {

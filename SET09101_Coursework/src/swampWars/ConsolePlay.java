@@ -55,7 +55,7 @@ public class ConsolePlay {
 		GameControl.setX_SIZE(xSize - 1);
 
 		while ((ySize <= 4) || !(ySize >= 8)) {
-			System.out.println("Please enter the hieght of your swamp(a number between 4 - 8):");
+			System.out.println("Please enter the height of your swamp(a number between 4 - 8):");
 			String yString = scanner.next();
 			try {
 				ySize = Integer.parseInt(yString);

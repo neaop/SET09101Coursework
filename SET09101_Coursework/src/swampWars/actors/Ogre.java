@@ -36,7 +36,7 @@ public class Ogre extends SwampDenizen {
 
 		this.setName(name);
 
-		updateDiet(rand.nextInt(3));
+		updateDiet(1);
 
 		System.out.println(this.getName() + " is at " + this.getXCoord() + ", " + this.getYCoord() + ".");
 	}

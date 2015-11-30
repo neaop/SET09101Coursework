@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,6 +24,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class GameScreen extends JFrame {
@@ -30,7 +32,7 @@ public class GameScreen extends JFrame {
 	private JPanel gui = new JPanel(new BorderLayout(3, 3));
 	private JPanel gameBoard;
 	private JPanel buttons;
-	private static int xSize = 4, ySize = 4;
+	private static int xSize = 7, ySize = 4;
 	private static String ogreName;
 	private static GameControl gc;
 	private JLabel swampSquares[][];
@@ -44,7 +46,7 @@ public class GameScreen extends JFrame {
 				try {
 					GameScreen frame = new GameScreen(xSize, ySize, ogreName);
 					frame.setVisible(true);
-					frame.updateGrid();
+					// frame.updateGrid();
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,32 +70,28 @@ public class GameScreen extends JFrame {
 
 		this.swampSquares = new JLabel[this.xSize][this.ySize];
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, (xSize * 55) + 20, (ySize * 55) + 200);
+		setBounds(100, 100, (xSize * 55), (ySize * 55) + 200);
 		gui.setBorder(new EmptyBorder(5, 5, 5, 5));
 		// gui.setLayout(new BorderLayout());
 		setContentPane(gui);
 
 		gameBoard = new JPanel();
 		gui.add(gameBoard, BorderLayout.PAGE_START);
-		gameBoard.setLayout(new GridLayout(this.ySize, this.ySize, 0, 0));
-		gameBoard.setBorder(new LineBorder(Color.BLACK, 5));
+		gameBoard.setLayout(new GridLayout(this.ySize, this.xSize, 0, 0));
+		// gameBoard.setBorder(new LineBorder(Color.BLACK, 5));
 
-		for (int x = 0; x < this.xSize; x++) {
-			for (int y = 0; y < this.ySize; y++) {
-				JLabel l = new JLabel(x + "," + y);
+		for (int y = 0; y < this.ySize; y++) {
+			for (int x = 0; x < this.xSize; x++) {
+				JLabel l = new JLabel(/* x + "," + y */);
 				ImageIcon icon = new ImageIcon(new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB));
 				l.setIcon(icon);
 				l.setBorder(new LineBorder(Color.BLACK));
 				l.setHorizontalTextPosition(JLabel.CENTER);
-
 				swampSquares[x][y] = l;
-			}
-		}
-		for (int x = 0; x < GameControl.getX_SIZE(); x++) {
-			for (int y = 0; y < GameControl.getX_SIZE(); y++) {
 				gameBoard.add(swampSquares[x][y]);
 			}
 		}
+
 		buttons = new JPanel();
 
 		buttons.setLayout(new GridLayout(4, 0));
@@ -126,15 +124,25 @@ public class GameScreen extends JFrame {
 				updateGrid();
 			}
 		});
+
+		String[] petStrings = { "Hungry for Knights!", "Hungry for Enemies!", "Hungry for Burgers!" };
+
+		// Create the combo box, select item at index 4.
+		// Indices start at 0, so 4 specifies the pig.
+		JComboBox petList = new JComboBox(petStrings);
+		petList.setSelectedIndex(0);
+
+		buttons.add(petList);
+
 		gui.add(buttons);
-		this.updateGrid();
+		updateGrid();
 	}
 
 	private void updateGrid() {
 
 		for (int x = 0; x < this.xSize; x++) {
 			for (int y = 0; y < this.ySize; y++) {
-				// swampSquares[x][y].setText("");
+				swampSquares[x][y].setText("");
 				ImageIcon icon = new ImageIcon(new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB));
 				swampSquares[x][y].setIcon(icon);
 			}
@@ -147,17 +155,22 @@ public class GameScreen extends JFrame {
 				int count = 0;
 
 				if ((og.getXCoord() == x) && (og.getYCoord() == y)) {
-					ImageIcon ogreIcon = new ImageIcon("src/resources/Ogre.jpg");
+					URL imgURL = GameScreen.class.getResource("/Ogre.jpg");
+
+					ImageIcon ogreIcon = new ImageIcon(imgURL);
 					swampSquares[x][y].setIcon(ogreIcon);
 					swampSquares[x][y].setHorizontalTextPosition(JLabel.CENTER);
 				}
 				for (Enemy en : el) {
 					if ((en.getXCoord() == x && en.getYCoord() == y)) {
 						count++;
-						ImageIcon icon = new ImageIcon("src/resources/" + en.getName() + ".jpg");
+						URL imgURL = GameScreen.class.getResource("/" + en.getName() + ".jpg");
+						ImageIcon icon = new ImageIcon(imgURL);
 						swampSquares[x][y].setIcon(icon);
 						swampSquares[x][y].setText(count + "");
 						swampSquares[x][y].setHorizontalTextPosition(JLabel.CENTER);
+						swampSquares[x][y].setForeground(Color.BLACK);
+
 					}
 				}
 			}
