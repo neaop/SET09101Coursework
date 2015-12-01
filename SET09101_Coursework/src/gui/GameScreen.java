@@ -71,6 +71,7 @@ public class GameScreen extends JFrame {
 
 		this.gc = new GameControl(this.ogreName);
 		this.swampSquares = new JLabel[this.xSize][this.ySize];
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, (xSize * 55), (ySize * 55) + 200);
 		gui.setBorder(new EmptyBorder(5, 5, 5, 5));

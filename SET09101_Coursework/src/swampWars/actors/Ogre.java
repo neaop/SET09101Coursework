@@ -17,17 +17,18 @@ public class Ogre extends SwampDenizen {
 
 	// constructor
 	public Ogre(String name) {
+		// new random and temporary ints
+		Random rand = new Random();
+		int startX, startY;
+
 		// set number of enemies killed to 0
 		this.smooshCounter = 0;
 
-		// new random
-		Random rand = new Random();
-		int startX, startY;
-		// roll stariting locations
+		// roll starting locations
 		startX = rand.nextInt(GameControl.getX_SIZE() + 1);
 		startY = rand.nextInt(GameControl.getY_SIZE() + 1);
 
-		// check that start is top left
+		// check if start is top left
 		if (startX == 0 && startY == 0) {
 			// roll random
 			int select = rand.nextInt(0);
@@ -50,6 +51,7 @@ public class Ogre extends SwampDenizen {
 		// set starting diet
 		updateDiet(0);
 
+		// acknowledge creation
 		System.out.println(this.getName() + " is at " + this.getXCoord() + ", " + this.getYCoord() + ".");
 	}
 
@@ -64,6 +66,7 @@ public class Ogre extends SwampDenizen {
 		}
 	}
 
+	// setters/getters
 	public Diet getDiet() {
 		return diet;
 	}

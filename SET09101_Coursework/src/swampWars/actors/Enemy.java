@@ -1,6 +1,6 @@
 package swampWars.actors;
 
-//bas class for all enemies
+//base class for all enemies
 @SuppressWarnings("serial")
 public abstract class Enemy extends SwampDenizen {
 

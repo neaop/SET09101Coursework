@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+//class that takes in an object to deep copy 
 public class SwampSerilizer {
 
+	// pass object to copy
 	public static Object copy(Object orig) {
 		Object obj = null;
 		try {
