@@ -53,13 +53,20 @@ public class StartScreen {
 
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 
+			// on start button press
+			public void actionPerformed(ActionEvent e) {
+				// temp string
 				String tempName = txtName.getText();
 
+				// if name is NOT null or white space
 				if ((tempName != null) && (tempName.trim().length() > 0)) {
+					// set ogre name to temp nae
 					ogreName = tempName;
+
+					// create new game screen
 					GameScreen gs = new GameScreen(swampXSize, swampYSize, ogreName);
+					// open game screen
 					gs.setVisible(true);
 				}
 
