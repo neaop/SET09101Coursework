@@ -32,11 +32,13 @@ public class GameScreen extends JFrame {
 	private JPanel gui = new JPanel(new BorderLayout(3, 3));
 	private JPanel gameBoard;
 	private JPanel buttons;
+	private JPanel counters;
+	private JLabel swampSquares[][];
+	private JLabel smoosh, turn, game;
 	private static int xSize = 4, ySize = 4;
 	private static String ogreName;
 	private static GameControl gc;
-	private JLabel swampSquares[][];
-	private final JButton move, undo, redo;
+	private final JButton move, undo, redo, quit;
 
 	private final JComboBox dietList;
 
@@ -68,8 +70,8 @@ public class GameScreen extends JFrame {
 		GameControl.setY_SIZE(this.ySize - 1);
 
 		this.gc = new GameControl(this.ogreName);
-
 		this.swampSquares = new JLabel[this.xSize][this.ySize];
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, (xSize * 55), (ySize * 55) + 200);
 		gui.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -94,7 +96,6 @@ public class GameScreen extends JFrame {
 		}
 
 		buttons = new JPanel();
-
 		buttons.setLayout(new GridLayout(4, 0));
 		move = new JButton("Move");
 		buttons.add(move);
@@ -143,10 +144,30 @@ public class GameScreen extends JFrame {
 		});
 
 		buttons.add(dietList);
-
 		gui.add(buttons);
-		updateGrid();
 
+		counters = new JPanel();
+		counters.setLayout(new GridLayout(4, 0));
+
+		game = new JLabel("Swamp Wars!");
+		counters.add(game);
+
+		turn = new JLabel("Turn: " + gc.getTurnCount());
+		counters.add(turn);
+
+		smoosh = new JLabel("Points: " + gc.getCurrentState().getPlayer().getSmooshCounter());
+		counters.add(smoosh);
+
+		quit = new JButton("Quit");
+		quit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+
+		gui.add(counters, BorderLayout.EAST);
+
+		updateGrid();
 	}
 
 	private void updateGrid() {
@@ -155,9 +176,11 @@ public class GameScreen extends JFrame {
 			undo.setEnabled(false);
 			redo.setEnabled(false);
 			dietList.setEnabled(false);
-
+			game.setText("Game Ogre!");
 		}
 
+		turn.setText("Turn: " + gc.getTurnCount());
+		smoosh.setText("Points: " + gc.getCurrentState().getPlayer().getSmooshCounter());
 		for (int x = 0; x < this.xSize; x++) {
 			for (int y = 0; y < this.ySize; y++) {
 				swampSquares[x][y].setText("");

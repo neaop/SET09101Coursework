@@ -4,18 +4,14 @@ import java.util.Random;
 
 import swampWars.control.GameControl;
 
-/**
- * A base class for all actors in the game
- * 
- * @author Sam Dixon
- *
- */
+//base class for all actors in game
 @SuppressWarnings("serial")
 public abstract class SwampDenizen implements java.io.Serializable {
 
 	private int xCoord, yCoord;
 	private String name;
 
+	// method to change current coordinates to a new,adjecent ,random location
 	public void move() {
 		// define variables
 		Random rn = new Random();
@@ -44,11 +40,13 @@ public abstract class SwampDenizen implements java.io.Serializable {
 		this.yCoord = newY;
 	}
 
+	// returns an array containing the x,y location of an actor
 	public int[] getLocation() {
 		int[] location = new int[] { this.getXCoord(), this.getYCoord() };
 		return location;
 	}
 
+	// getters/setters
 	public int getXCoord() {
 		return xCoord;
 	}

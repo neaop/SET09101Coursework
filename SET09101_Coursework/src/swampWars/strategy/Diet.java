@@ -1,7 +1,8 @@
 package swampWars.strategy;
 
+//interface  for ogres diets
 public interface Diet {
 
-	public void Diet();
+	void dietType();
 
 }

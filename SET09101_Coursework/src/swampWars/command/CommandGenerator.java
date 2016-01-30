@@ -2,33 +2,19 @@ package swampWars.command;
 
 import swampWars.actors.Enemy;
 
-/**
- * Threaded class to generate move commands for an enemy
- * 
- * @author Sam Dixon
- *
- */
+// threaded class to generate move commands for an enemy
 public class CommandGenerator extends Thread {
 
 	private Enemy enemy;
 	private Invoker invoker;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param enmy
-	 * @param invk
-	 */
+	// constructor
 	public CommandGenerator(Enemy enmy, Invoker invk) {
 		this.enemy = enmy;
 		this.invoker = invk;
 	}
 
-	/**
-	 * Create new move command for enemy, and add to invoker (non-Javadoc)
-	 * 
-	 * @see java.lang.Thread#run()
-	 */
+	// Create new move command for enemy, and add to invoker
 	@Override
 	public void run() {
 		Command move = new MoveCommand(this.enemy);
